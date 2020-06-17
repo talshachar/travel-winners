@@ -3,6 +3,7 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 import { weatherService } from './services/weather-service.js'
+import{utilService} from './services/util-service.js'
 
 
 locService.getLoc()
@@ -12,20 +13,28 @@ window.onload = () => {
     mapService.initMap()
         .then(() => {
             mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
-            // map.addListener('click', event => addMarker(event));
+            locService.getPosition()
+                .then(loc => {
+                    console.log('User position is:', loc.coords);
+                    let lat=loc.coords.latitude
+                    let lng=loc.coords.longitude
+                    locService.setLoc({ lat, lng})
+                    // let name=
+
+                    mapService.panTo(lat, lng);
+                    locService.setLoc({ lat, lng});
+                    mapService.addMarker({ lat, lng }, 'Your Location');
+                    renderWeather();
+
+
+                })
+                .catch(err => {
+                    console.log('err!!!', err);
+                })
         })
         .catch(err => console.log('Map Error:', err));
+console.log(utilService.linkBuilder())
 
-    locService.getPosition()
-        .then(loc => {
-            console.log('User position is:', loc.coords);
-            mapService.panTo(loc.coords.latitude, loc.coords.longitude);
-            mapService.addMarker({ lat: loc.coords.latitude, lng: loc.coords.longitude }, 'Your Location');
-            renderWeather()
-        })
-        .catch(err => {
-            console.log('err!', err);
-        })
 }
 
 
@@ -37,9 +46,10 @@ function onSearchAddress() {
         .then(res => {
             let lat = res.results[0].geometry.location.lat
             let lng = res.results[0].geometry.location.lng
-            locService.setLoc({ lat, lng })
+            let name = res.results[0].geometry.location.formatted_address
+            locService.setLoc({ lat, lng, name })
             mapService.panTo(lat, lng)
-            mapService.addMarker({ lat, lng }, res.results[0].geometry.location.formatted_address)
+            mapService.addMarker({ lat, lng }, name)
             console.log(res)
             renderWeather()
         })

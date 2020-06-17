@@ -8,7 +8,7 @@ export const mapService = {
 const API_KEY = 'AIzaSyCUpkuBnIe4RI30DIj1E2435wHFkUVSF1k'; // √ (Tal's Key) TODO: Enter your API Key
 
 
-var map;
+var map, marker;
 
 
 export function initMap(lat = 32.0749831, lng = 34.9120554) {
@@ -22,8 +22,9 @@ export function initMap(lat = 32.0749831, lng = 34.9120554) {
         })
 }
 
-function addMarker(loc, title = 'Hello World!') {
-    var marker = new google.maps.Marker({
+function addMarker(loc, title = 'Pinned Location') {
+    if (marker) marker.setMap(null);
+    marker = new google.maps.Marker({
         position: loc,
         map: map,
         title,

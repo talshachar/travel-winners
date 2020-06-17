@@ -43,7 +43,7 @@ function onSearchAddress() {
             mapService.addMarker({lat,lng}, res.results[0].geometry.location.formatted_address)
             console.log(res)
             renderWeather()
-        })
+        }) 
 }
 // loocService.getPosition()
 //         .then(loc => {

@@ -1,9 +1,5 @@
 'use strict';
 
-
-
-console.log('Main!');
-
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 import { weatherService } from './services/weather-service.js'
@@ -24,12 +20,41 @@ window.onload = () => {
         .then(loc => {
             console.log('User position is:', loc.coords);
             mapService.panTo(loc.coords.latitude, loc.coords.longitude);
-            mapService.addMarker({ lat: loc.coords.latitude, lng: loc.coords.longitude }, 'My Location');
+            mapService.addMarker({ lat: loc.coords.latitude, lng: loc.coords.longitude }, 'Your Location');
             renderWeather()
         })
         .catch(err => {
-            console.log('err!!!', err);
+            console.log('err!', err);
         })
+}
+
+
+document.querySelector(".search-now-btn").addEventListener("click", onSearchAddress);
+document.querySelector(".my-location-btn").addEventListener("click", onGetPosition);
+
+function onSearchAddress() {
+    mapService.findLocationByString()
+        .then(res => {
+            let lat = res.results[0].geometry.location.lat
+            let lng = res.results[0].geometry.location.lng
+            locService.setLoc({ lat, lng })
+            mapService.panTo(lat, lng)
+            mapService.addMarker({ lat, lng }, res.results[0].geometry.location.formatted_address)
+            console.log(res)
+            renderWeather()
+        })
+}
+
+function onGetPosition() {
+    locService.getPosition()
+        .then(loc => {
+            const lat = loc.coords.latitude;
+            const lng = loc.coords.longitude
+            locService.setLoc({ lat, lng })
+            mapService.panTo(lat, lng)
+            mapService.addMarker({ lat, lng }, 'Your Location')
+            renderWeather()
+        });
 }
 
 // loocService.getPosition()
@@ -44,64 +69,7 @@ window.onload = () => {
 //             console.log('Error:', err);
 //         })
 
-// document.querySelector('.btn').addEventListener('click', (ev) => {
-//     console.log('Aha!', ev.target);
-//     mapService.panTo(35.6895, 139.6917);
-// })
-
-// MAP SPECIFIC FUNCTIONS
-// function onGeoLocation(){
-//     infoWindow.close();
-//     infoWindow = new google.maps.infoWindow;
-//     if (navigator.geolocation){
-//         navigator.geolocation.getCurrentPosition(function(position){
-//             var pos={
-//                 lat:position.coords.latitude,
-//                 lng: position.coords.longitude
-//             };
-
-//             infoWindow.setPosition(pos);
-//             infoWindow.setContent('Your Location');
-//             infoWindow.open(map);
-//             map.setCenter(pos);
-//             document.querySelector('.my-location');
-//             map.addListener('center_changed',event=>onCenterChanged());
-//         },function(){
-//             handleLocationError(true,infoWindow,map.getCenter());
-//         });
-//     }else{
-//         handleLocationError(false,infoWindow,map.getCenter());
-//     }
-// }
-
-// function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-//     infoWindow.setPosition(pos);
-//     infoWindow.setContent(browserHasGeolocation ?
-//         'Error: The Geolocation service failed.' :
-//         'Error: Your browser doesn\'t support geolocation.');
-//     document.querySelector('.goto-geolocation div').style.backgroundPositionX = '-70px';
-//     infoWindow.open(map);
-// }
-
-// function addMarker(loc ,city){
-//     infoWindow.close();
-//     let lat = loc.lat
-//     let lng = loc.lng
-//     var position = new google.maps.LatLng(lat, lng);
-
-//     if (marker) marker.setMap(null);
-//     marker = new google.maps.Marker({ title, position, center: position });
-
-//     marker.setMap(map);
-
-// }
-
-// function ongCenterChanged() {
-//     document.querySelector('.my-location').style.backgroundPositionX = '0px';
-// }
-
 // WEATHER
-
 function renderWeather() {
     locService.getLoc()
         .then(loc => {

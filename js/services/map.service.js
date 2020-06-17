@@ -26,7 +26,8 @@ function addMarker(loc, title = 'Hello World!') {
     var marker = new google.maps.Marker({
         position: loc,
         map: map,
-        title
+        title,
+        icon: 'img/icons/paper-plane-marker.png'
     });
     console.log(marker)
     return marker;

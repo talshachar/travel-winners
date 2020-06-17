@@ -1,9 +1,15 @@
 'use strict';
 
+var gCurrLoc = {
+    lat: 32.0749831,
+    lng: 34.9120554
+}
+
 console.log('Main!');
 
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
+import { weatherService } from './services/weather-service.js'
 
 
 locService.getLocs()
@@ -12,7 +18,7 @@ locService.getLocs()
 window.onload = () => {
     mapService.initMap()
         .then(() => {
-            mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
+            mapService.addMarker({ lat: gCurrLoc.lat, lng: gCurrLoc.lng });
         })
         .catch(console.log('INIT MAP ERROR'));
 
@@ -24,6 +30,11 @@ window.onload = () => {
         .catch(err => {
             console.log('err!!!', err);
         })
+    weatherService.getWeather(gCurrLoc.lat,gCurrLoc.lng)
+    .then(weather=>{
+        console.log(weather)
+    })
+
 }
 
 document.querySelector('.btn').addEventListener('click', (ev) => {

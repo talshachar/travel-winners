@@ -7,7 +7,7 @@ console.log('Main!');
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 import { weatherService } from './services/weather-service.js'
-import{utilService} from './services/util-service.js'
+import { utilService } from './services/util-service.js'
 
 
 locService.getLoc()
@@ -20,15 +20,17 @@ window.onload = () => {
             locService.getPosition()
                 .then(loc => {
                     console.log('User position is:', loc.coords);
-                    let lat=loc.coords.latitude
-                    let lng=loc.coords.longitude
-                    locService.setLoc({ lat, lng})
+                    let lat = loc.coords.latitude
+                    let lng = loc.coords.longitude
+                    locService.setLoc({ lat, lng })
                     // let name=
 
                     mapService.panTo(lat, lng);
-                    locService.setLoc({ lat, lng})
+                    locService.setLoc({ lat, lng })
                     mapService.addMarker({ lat, lng })
                     renderWeather()
+                    loadMapFromUrl()
+
 
 
                 })
@@ -37,8 +39,6 @@ window.onload = () => {
                 })
         })
         .catch(err => console.log('Map Error:', err));
-console.log(utilService.linkBuilder())
-
 }
 
 
@@ -57,6 +57,28 @@ function onSearchAddress() {
             renderWeather()
         })
 }
+
+function loadMapFromUrl() {
+    let lat = getQueryVariable('lat')
+    let lng = getQueryVariable('lng')
+
+    console.log('lat:', lat, 'lng:', lng)
+    locService.setLoc({ lat, lng })
+    mapService.panTo(lat, lng)
+    mapService.addMarker({ lat, lng }, 'Searched Location')
+
+}
+
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) { return pair[1]; }
+    }
+    return (false);
+}
+
 // loocService.getPosition()
 //         .then(loc => {
 //             mapService.initMap(loc.coords.latitude, loc.coords.longitude)

@@ -5,7 +5,7 @@ export const locService = {
     getPosition,
     setLoc
 }
-var gLoc = { lat: 11.22, lng: 22.11 }
+var gLoc = { lat: 11.22, lng: 22.11 , name : 'NY'}
 
 function getLoc() {
     return new Promise((resolve, reject) => {

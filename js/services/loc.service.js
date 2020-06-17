@@ -1,17 +1,22 @@
 'use strict';
 
 export const locService = {
-    getLoc: getLoc,
-    getPosition: getPosition
+    getLoc,
+    getPosition,
+    setLoc
 }
-var loc = { lat: 11.22, lng: 22.11 }
+var gLoc = { lat: 11.22, lng: 22.11 }
 
 function getLoc() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve(loc);
+            resolve(gLoc);
         }, 0)
     });
+}
+
+function setLoc(loc){
+    gLoc=loc;
 }
 
 
@@ -20,4 +25,6 @@ function getPosition() {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     });
 }
+
+
 

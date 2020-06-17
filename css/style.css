@@ -1,0 +1,36 @@
+/* Layout (CTRL+G 12): BASE, HEADER, CONTROLS, MAP, FOOTER */
+
+/* Helpers (CTRL+G 200) */
+
+/* --- Layout --- */
+
+/* BASE */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Source Sans Pro';
+}
+
+body {
+    margin: 0;
+}
+
+/* HEADER */
+
+/* CONTROLS */
+
+/* MAP */
+
+.map {
+    width: 100%;
+    height: 400px;
+}
+
+/* --- HELPERS --- */
+
+.wrapper {
+    height: 100vh;
+}

@@ -1,16 +1,16 @@
 'use strict';
 
 export const locService = {
-    getLocs: getLocs,
+    getLoc: getLoc,
     getPosition: getPosition
 }
-var locs = [{ lat: 11.22, lng: 22.11 }]
+var loc = { lat: 11.22, lng: 22.11 }
 
-function getLocs() {
+function getLoc() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve(locs);
-        }, 2000)
+            resolve(loc);
+        }, 0)
     });
 }
 
@@ -20,6 +20,14 @@ function getPosition() {
 
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
+        .then(pos => {
+            loc.lat=pos.latitude;
+            loc.lom=pos.longitude
+            // console.log('User position is:', pos.coords);
+        })
+        .catch(err => {
+            console.log('err!!!', err);
+        })
     })
 }
 

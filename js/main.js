@@ -1,9 +1,6 @@
 'use strict';
 
-var gCurrLoc = {
-    lat: 32.0749831,
-    lng: 34.9120554
-}
+
 
 console.log('Main!');
 
@@ -12,13 +9,13 @@ import { mapService } from './services/map.service.js'
 import { weatherService } from './services/weather-service.js'
 
 
-locService.getLocs()
+locService.getLoc()
     .then(locs => console.log('locs', locs))
 
 window.onload = () => {
     mapService.initMap()
         .then(() => {
-            mapService.addMarker({ lat: gCurrLoc.lat, lng: gCurrLoc.lng });
+            mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
         })
         .catch(console.log('INIT MAP ERROR'));
 
@@ -42,12 +39,20 @@ document.querySelector('.btn').addEventListener('click', (ev) => {
 
 
 function renderWeather() {
-    weatherService.getWeather(gCurrLoc.lat, gCurrLoc.lng)
+    locService.getLoc()
+    .then(loc => {
+        let lat=loc.lat
+        let lng=loc.lng
+        weatherService.getWeather(lat, lng)
         .then(weather => {
+            console.log(weather)
             document.querySelector('.weather-location').innerText = 'in ' + weather.name;
             document.querySelector('.temp').innerHTML = 'Temp: ' + weather.main.temp + '&#8451;';
             document.querySelector('.wind-speed').innerText = 'Wind: ' + weather.wind.speed + ' m/s';
             document.querySelector('.general-weather-desc').innerText = weather.weather[0].description;
         })
+    })
+    
+    
 
 }

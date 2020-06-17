@@ -30,6 +30,21 @@ window.onload = () => {
         })
 }
 
+
+document.querySelector(".search-now-btn").addEventListener("click", onSearchAddress);
+
+function onSearchAddress() {
+    mapService.findLocationByString()
+        .then(res => {
+            let lat=res.results[0].geometry.location.lat
+            let lng=res.results[0].geometry.location.lng
+            locService.setLoc({lat,lng})
+            mapService.panTo(lat, lng)
+            mapService.addMarker({lat,lng}, res.results[0].geometry.location.formatted_address)
+            console.log(res)
+            renderWeather()
+        })
+}
 // loocService.getPosition()
 //         .then(loc => {
 //             mapService.initMap(loc.coords.latitude, loc.coords.longitude)

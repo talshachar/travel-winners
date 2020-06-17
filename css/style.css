@@ -20,7 +20,6 @@ body {
 }
 button{
     padding: 10px 20px;
-    outline: none;
 }
 input{
     padding: 10px 20px;
@@ -58,6 +57,13 @@ h1 {
 .weather {
     padding: 0 10px;
 }
+.weather-loc h3{
+    margin: auto;
+}
+.weather-loc p{
+    margin: 5px;
+    text-align: center;
+}
 
 .weather-details {
     padding-left: 10px;
@@ -92,4 +98,8 @@ h1 {
 
 .space-between {
     justify-content: space-between;
+}
+
+.flex-row{
+    flex-direction: column;
 }

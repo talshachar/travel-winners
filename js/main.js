@@ -45,6 +45,7 @@ document.querySelector('.btn').addEventListener('click', (ev) => {
 
 
 function renderWeather(weather) {
+    document.querySelector('.weather-location').innerText='in ' +weather.name;
     document.querySelector('.temp').innerHTML = 'Temp: '+weather.main.temp+'&#8451;';
     document.querySelector('.wind-speed').innerText = 'Wind: '+ weather.wind.speed;
     document.querySelector('.general-weather-desc').innerText = weather.weather[0].description ;

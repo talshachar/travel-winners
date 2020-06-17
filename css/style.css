@@ -18,13 +18,17 @@ body {
     margin: 0;
     background-color: #aaeeff;
 }
-button{
-    padding: 10px 20px;
-}
-input{
-    padding: 10px 20px;
 
+button, input {
+    padding: 10px 20px;
 }
+
+.wrapper {
+    height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 
 /* HEADER */
 
@@ -35,32 +39,48 @@ header {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 33%;
+    height: 30%;
     max-height: 600px;
 }
 
 h1 {
-    font-size: 4em;
+    font-size: calc(3em + 6 * ((100vw - 320px) / 680));
     color: white;
     text-align: center;
     text-shadow: rgba(0, 0, 0, 1) 0 0 10px;
 }
 
+/* MAIN */
+
+main {
+    border-left: 1px solid #888;
+    border-right: 1px solid #888;
+    flex-grow: 1;
+    border-radius: 10px;
+}
+
 /* CONTROLS */
 
 .controls {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 0.5em;
     background-color: #fff;
     border-top: 1px solid #000;
     border-bottom: 1px solid #000;
 }
+
 /* WEATHER CONTROLS */
+
 .weather {
     padding: 0 10px;
 }
-.weather-loc h3{
+
+.weather-location h3 {
     margin: auto;
 }
-.weather-loc p{
+
+.weather-location p {
     margin: 5px;
     text-align: center;
 }
@@ -73,33 +93,39 @@ h1 {
 .weather-details p {
     margin: 0px;
 }
+
 /* MAP CONTROLS */
-.map-tools{
+
+.map-tools {
     align-self: center;
 }
 
 /* MAP */
 
 .map {
-    width: 100%;
-    height: 400px;
-    border-radius: 10px;
+    flex-grow: 1;
+    /* height: 100%;
+    width: 100%; */
 }
 
 /* --- HELPERS --- */
-
-.wrapper {
-    height: 100vh;
-}
 
 .flex {
     display: flex;
 }
 
-.space-between {
+.flex.column {
+    flex-direction: column;
+}
+
+.flex.wrap {
+    flex-wrap: wrap;
+}
+
+.flex.space-between {
     justify-content: space-between;
 }
 
-.flex-row{
-    flex-direction: column;
+.flex.space-around {
+    justify-content: space-around;
 }

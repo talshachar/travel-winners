@@ -6,46 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap"
         rel="stylesheet">
-    <!-- Add Favicon -->
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <title>TravelWinners</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <div class="wrapper">
+    <div class="wrapper flex column">
 
 
         <header class="flex">
             <h1>TravelWinners</h1>
         </header>
 
-        <section class="controls flex space-between">
+        <main class="flex column">
 
-            <article class="weather flex ">
-                <div class="weather-loc flex flex-row">
+            <section class="controls flex space-between">
+
+                <article class="weather flex">
                     <h3>Weather Today</h3>
-                    <p class="weather-location"></p>
-                </div>
-                <div class="weather-details flex">
-                    <p class="temp"></p>
-                    <p class="wind-speed"></p>
-                    <p class="general-weather-desc"></p>
-                </div>
-            </article>
-            <article class="map-tools">
-                <input type="text" name="search" placeholder="Enter Location">
-                <button>Go</button>
+                    <div class="weather-location flex flex-row">
+                        <p class="weather-location"></p>
+                    </div>
+                    <div class="weather-details flex">
+                        <p class="temp"></p>
+                        <p class="wind-speed"></p>
+                        <p class="general-weather-desc"></p>
+                    </div>
+                </article>
+                <article class="map-tools">
+                    <input type="text" name="search" placeholder="Enter Location">
+                    <button>Go</button>
 
-                <button>Share Location</button>
+                    <button>Share Location</button>
 
-                <button>My Location</button>
-            </article>
-        </section>
+                    <button>My Location</button>
+                </article>
+            </section>
 
-        <div id="map" class="map"></div>
-        <button class="btn">Click Me</button>
+            <div id="map" class="map"></div>
+            <!-- <button class="btn">Click Me</button> -->
+
+        </main>
 
     </div>
+
     <script src="js/lib/axios/axios.min.js"></script>
     <script type="module" src="js/main.js"></script>
 </body>

@@ -13,23 +13,19 @@ locService.getLoc()
     .then(locs => console.log('locs', locs))
 
 window.onload = () => {
-    mapService.initMap()
-        .then(() => {
-            mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
-        })
-        .catch(console.log('INIT MAP ERROR'));
-
     locService.getPosition()
-        .then(pos => {
-
-            console.log('User position is:', pos.coords);
+        .then(loc => {
+            console.log();
+            mapService.initMap(loc.coords.latitude, loc.coords.longitude)
+                .then(() => {
+                    mapService.addMarker();
+                })
+                .catch(console.log('INIT MAP ERROR'));
+            renderWeather()
         })
         .catch(err => {
             console.log('err!!!', err);
         })
-    renderWeather()
-
-
 }
 
 // document.querySelector('.btn').addEventListener('click', (ev) => {
@@ -38,63 +34,63 @@ window.onload = () => {
 // })
 
 // MAP SPECIFIC FUNCTIONS
-function onGeoLocation(){
-    infoWindow.close();
-    infoWindow = new google.maps.infoWindow;
-    if (navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(function(position){
-            var pos={
-                lat:position.coords.latitude,
-                lng: position.coords.longitude
-            };
+// function onGeoLocation(){
+//     infoWindow.close();
+//     infoWindow = new google.maps.infoWindow;
+//     if (navigator.geolocation){
+//         navigator.geolocation.getCurrentPosition(function(position){
+//             var pos={
+//                 lat:position.coords.latitude,
+//                 lng: position.coords.longitude
+//             };
 
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Your Location');
-            infoWindow.open(map);
-            map.setCenter(pos);
-            document.querySelector('.my-location');
-            map.addListener('center_changed',event=>onCenterChanged());
-        },function(){
-            handleLocationError(true,infoWindow,map.getCenter());
-        });
-    }else{
-        handleLocationError(false,infoWindow,map.getCenter());
-    }
-}
+//             infoWindow.setPosition(pos);
+//             infoWindow.setContent('Your Location');
+//             infoWindow.open(map);
+//             map.setCenter(pos);
+//             document.querySelector('.my-location');
+//             map.addListener('center_changed',event=>onCenterChanged());
+//         },function(){
+//             handleLocationError(true,infoWindow,map.getCenter());
+//         });
+//     }else{
+//         handleLocationError(false,infoWindow,map.getCenter());
+//     }
+// }
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
-        'Error: The Geolocation service failed.' :
-        'Error: Your browser doesn\'t support geolocation.');
-    document.querySelector('.goto-geolocation div').style.backgroundPositionX = '-70px';
-    infoWindow.open(map);
-}
+// function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+//     infoWindow.setPosition(pos);
+//     infoWindow.setContent(browserHasGeolocation ?
+//         'Error: The Geolocation service failed.' :
+//         'Error: Your browser doesn\'t support geolocation.');
+//     document.querySelector('.goto-geolocation div').style.backgroundPositionX = '-70px';
+//     infoWindow.open(map);
+// }
 
-function addMarker(loc ,city){
-    infoWindow.close();
-    let lat = loc.lat
-    let lng = loc.lng
-    var position = new google.maps.LatLng(lat, lng);
+// function addMarker(loc ,city){
+//     infoWindow.close();
+//     let lat = loc.lat
+//     let lng = loc.lng
+//     var position = new google.maps.LatLng(lat, lng);
 
-    if (marker) marker.setMap(null);
-    marker = new google.maps.Marker({ title, position, center: position });
+//     if (marker) marker.setMap(null);
+//     marker = new google.maps.Marker({ title, position, center: position });
 
-    marker.setMap(map);
+//     marker.setMap(map);
 
-}
+// }
 
-function ongCenterChanged() {
-    document.querySelector('.my-location').style.backgroundPositionX = '0px';
-}
+// function ongCenterChanged() {
+//     document.querySelector('.my-location').style.backgroundPositionX = '0px';
+// }
 
 // WEATHER
 
 function renderWeather() {
     locService.getLoc()
         .then(loc => {
-            let lat = loc.lat
-            let lng = loc.lng
+            const lat = loc.lat
+            const lng = loc.lng
             weatherService.getWeather(lat, lng)
                 .then(weather => {
                     console.log(weather)

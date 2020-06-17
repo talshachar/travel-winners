@@ -16,18 +16,8 @@ function getLoc() {
 
 
 function getPosition() {
-    console.log('Getting Pos');
-
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject)
-        .then(pos => {
-            loc.lat=pos.latitude;
-            loc.lom=pos.longitude
-            // console.log('User position is:', pos.coords);
-        })
-        .catch(err => {
-            console.log('err!!!', err);
-        })
-    })
+    });
 }
 

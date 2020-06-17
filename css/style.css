@@ -43,7 +43,16 @@ header {
     max-height: 600px;
 }
 
+header img {
+    height: 20vw;
+    max-height: 100px;
+    display: inline-block;
+}
+
 h1 {
+    display: inline-block;
+    margin: 0 0 0.2em;
+    font-family: 'Merriweather', serif;
     font-size: calc(3em + 6 * ((100vw - 320px) / 680));
     color: white;
     text-align: center;

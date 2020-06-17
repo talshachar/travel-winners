@@ -35,6 +35,8 @@ function addMarker(loc, title = 'Pinned Location') {
 }
 
 function panTo(lat, lng) {
+    console.log(lat,lng);
+    
     var laLatLng = new google.maps.LatLng(lat, lng);
     console.log(laLatLng)
     map.panTo(laLatLng);

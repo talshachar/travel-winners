@@ -18,6 +18,14 @@ body {
     margin: 0;
     background-color: #aaeeff;
 }
+button{
+    padding: 10px 20px;
+    outline: none;
+}
+input{
+    padding: 10px 20px;
+
+}
 
 /* HEADER */
 
@@ -46,6 +54,23 @@ h1 {
     border-top: 1px solid #000;
     border-bottom: 1px solid #000;
 }
+/* WEATHER CONTROLS */
+.weather {
+    padding: 0 10px;
+}
+
+.weather-details {
+    padding-left: 10px;
+    flex-direction: column;
+}
+
+.weather-details p {
+    margin: 0px;
+}
+/* MAP CONTROLS */
+.map-tools{
+    align-self: center;
+}
 
 /* MAP */
 
@@ -63,4 +88,8 @@ h1 {
 
 .flex {
     display: flex;
+}
+
+.space-between {
+    justify-content: space-between;
 }

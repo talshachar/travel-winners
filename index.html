@@ -16,24 +16,29 @@
 
 
         <header class="flex">
-            <h1>TravelWinners</h1>    
+            <h1>TravelWinners</h1>
         </header>
 
-        <section class="controls flex">
-            
-            <article class="weather">
-                <h3>Weather Today</h3>
-            </article>
-            
-            <input type="text" name="search" placeholder="Enter Location">
-            <button>Go</button>
-            
-            <button>Share Location</button>
-            
-            <button>My Location</button>
+        <section class="controls flex space-between">
 
+            <article class="weather flex ">
+                <h3>Weather Today</h3>
+                <div class="weather-details flex">
+                    <p class="temp"></p>
+                    <p class="wind-speed"></p>
+                    <p class="general-weather-desc"></p>
+                </div>
+            </article>
+            <article class="map-tools">
+                <input type="text" name="search" placeholder="Enter Location">
+                <button>Go</button>
+
+                <button>Share Location</button>
+
+                <button>My Location</button>
+            </article>
         </section>
-            
+
         <div id="map" class="map"></div>
         <button class="btn">Click Me</button>
 

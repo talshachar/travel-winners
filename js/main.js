@@ -16,6 +16,7 @@ window.onload = () => {
     mapService.initMap()
         .then(() => {
             mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
+            // map.addListener('click', event => addMarker(event));
         })
         .catch(err => console.log('Map Error:', err));
 
@@ -23,6 +24,7 @@ window.onload = () => {
         .then(loc => {
             console.log('User position is:', loc.coords);
             mapService.panTo(loc.coords.latitude, loc.coords.longitude);
+            mapService.addMarker({ lat: loc.coords.latitude, lng: loc.coords.longitude }, 'My Location');
             renderWeather()
         })
         .catch(err => {
@@ -30,26 +32,10 @@ window.onload = () => {
         })
 }
 
-
-document.querySelector(".search-now-btn").addEventListener("click", onSearchAddress);
-
-function onSearchAddress() {
-    mapService.findLocationByString()
-        .then(res => {
-            let lat=res.results[0].geometry.location.lat
-            let lng=res.results[0].geometry.location.lng
-            locService.setLoc({lat,lng})
-            mapService.panTo(lat, lng)
-            mapService.addMarker({lat,lng}, res.results[0].geometry.location.formatted_address)
-            console.log(res)
-            renderWeather()
-        })
-}
 // loocService.getPosition()
 //         .then(loc => {
 //             mapService.initMap(loc.coords.latitude, loc.coords.longitude)
 //                 .then(() => {
-//                     mapService.addMarker({ lat: loc.coords.latitude, lng: loc.coords.longitude }, 'My Location');
 //                 })
 //                 .catch(console.log('INIT MAP ERROR'));
 //             renderWeather()

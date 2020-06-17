@@ -13,20 +13,35 @@ locService.getLoc()
     .then(locs => console.log('locs', locs))
 
 window.onload = () => {
+    mapService.initMap()
+        .then(() => {
+            mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
+        })
+        .catch(err => console.log('Map Error:', err));
+
     locService.getPosition()
         .then(loc => {
-            console.log();
-            mapService.initMap(loc.coords.latitude, loc.coords.longitude)
-                .then(() => {
-                    mapService.addMarker();
-                })
-                .catch(console.log('INIT MAP ERROR'));
+            console.log('User position is:', loc.coords);
+            mapService.panTo(loc.coords.latitude, loc.coords.longitude);
             renderWeather()
         })
         .catch(err => {
             console.log('err!!!', err);
         })
 }
+
+// loocService.getPosition()
+//         .then(loc => {
+//             mapService.initMap(loc.coords.latitude, loc.coords.longitude)
+//                 .then(() => {
+//                     mapService.addMarker({ lat: loc.coords.latitude, lng: loc.coords.longitude }, 'My Location');
+//                 })
+//                 .catch(console.log('INIT MAP ERROR'));
+//             renderWeather()
+//         })
+//         .catch(err => {
+//             console.log('Error:', err);
+//         })
 
 // document.querySelector('.btn').addEventListener('click', (ev) => {
 //     console.log('Aha!', ev.target);

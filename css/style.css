@@ -102,8 +102,12 @@ main {
 
 /* WEATHER CONTROLS */
 
-.weather-location h3 {
-    margin: auto;
+.weather {
+    flex-grow: 1;
+}
+
+.weather .title {
+    margin-inline-end: 0.5em;
 }
 
 .weather-location {
@@ -118,9 +122,10 @@ main {
 .weather-details {
     padding-inline-start: 1em;
     align-self: center;
+    flex-grow: 1;
 }
 
-@media (min-width: 430px) {
+@media (min-width: 450px) {
     .weather-details {
         flex-direction: column;
     }
@@ -144,7 +149,7 @@ main {
 
 .location-name {
     padding: 0.5em;
-    flex-grow: 1;
+    flex-grow: 3;
 }
 
 .search-now-btn {

@@ -3,7 +3,8 @@ export const mapService = {
     initMap,
     addMarker,
     panTo,
-    findLocationByString
+    findLocationByString,
+    findLocationByCoords
 }
 const API_KEY = 'AIzaSyCUpkuBnIe4RI30DIj1E2435wHFkUVSF1k'; // √ (Tal's Key) TODO: Enter your API Key
 
@@ -11,7 +12,7 @@ const API_KEY = 'AIzaSyCUpkuBnIe4RI30DIj1E2435wHFkUVSF1k'; // √ (Tal's Key) TO
 var map, marker;
 
 
-export function initMap(lat = 32.0749831, lng = 34.9120554) {
+function initMap(lat = 32.0749831, lng = 34.9120554) {
     return _connectGoogleApi()
         .then(() => {
             map = new google.maps.Map(
@@ -30,15 +31,11 @@ function addMarker(loc, title = 'Pinned Location') {
         title,
         icon: 'img/icons/paper-plane-marker.png'
     });
-    console.log(marker)
     return marker;
 }
 
 function panTo(lat, lng) {
-    console.log(lat,lng);
-    
     var laLatLng = new google.maps.LatLng(lat, lng);
-    console.log(laLatLng)
     map.panTo(laLatLng);
 }
 
@@ -55,13 +52,24 @@ function _connectGoogleApi() {
     })
 }
 
+import { locService } from './loc.service.js';
 
+function findLocationByCoords() {
+    const loc = locService.getLoc()
+        .then(loc => {
+            const searchString = loc.lat + ',' + loc.lng;
+            return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchString}&key=${API_KEY}`)
+                .then(res => {
+                    return res.data;
+                })
+        })
+    return loc;
+}
 
 function findLocationByString() {
-    let searchString = document.querySelector('.search-text').value;
+    const searchString = document.querySelector('.search-text').value;
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${searchString}&key=${API_KEY}`)
         .then(res => {
-            // console.log(res);
             return res.data;
         })
 }

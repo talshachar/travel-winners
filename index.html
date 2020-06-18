@@ -3,18 +3,26 @@
 
 <head>
     <meta charset="UTF-8">
+    <!-- Possible Fix for Mixed Content HTTPS Bug <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@900&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <title>TravelWinners</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <div class="wrapper flex column">
 
+    <div class="global-modal screener" hidden>
+        <!-- Sharing Modal -->
+        <div onclick="event.stopPropagation();" class="share-modal flex">
+            <button class="wa-share-btn"><img src="img/icons/whatsapp.svg" class="icon" title="Share Via WhatsApp"
+                    alt="share via WhatsApp"></button>
+            <button class="copy-btn"><img src="img/icons/copy.svg" class="icon" title="Copy to clipboard"
+                    alt="copy to clipboard"></button>
+        </div>
+    </div>
+
+    <div class="wrapper flex column">
 
         <header class="flex">
             <img src="img/icons/paper-plane.svg">
@@ -23,13 +31,14 @@
 
         <main class="flex column">
 
-            <section class="controls flex space-between">
+            <section class="controls flex space-between wrap-reverse">
 
                 <article class="weather flex">
-                    <h3>Weather Today</h3>
-                    <div class="weather-location flex">
+                    <div class="title">
+                        <h3>Weather Today</h3>
                         <p class="weather-location"></p>
                     </div>
+
                     <div class="weather-details flex">
                         <p class="temp"></p>
                         <p class="wind-speed"></p>
@@ -37,19 +46,23 @@
                     </div>
                 </article>
 
-                <div class="map-tools">
+                <div class="location-name flex align-center"></div>
+
+                <div class="map-tools flex wrap-reverse">
                     <input class="search-text" type="text" name="search" placeholder="Where to?">
                     <button class="search-now-btn">Go</button>
 
-                    <button>Share Location</button>
+                    <button class="share-location">
+                        <img src="img/icons/share-white.svg" class="icon">
+                        Share
+                    </button>
 
-                    <button class="my-location-btn">My Location</button>
+                    <button class="my-location-btn"></button>
                 </div>
 
             </section>
 
             <div id="map" class="map"></div>
-            <!-- <button class="btn">Click Me</button> -->
 
         </main>
 
